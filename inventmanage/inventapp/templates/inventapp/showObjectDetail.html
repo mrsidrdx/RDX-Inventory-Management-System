@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+<div>
+<a href="/modelObjects/{{objectType}}" class="btn btn-primary" onclick="showEntry()">Make New Entry</a>&nbsp; &nbsp;
+<a href="/modelObjects/{{objectType}}?edit=true&objectId={{object.id}}" class="btn btn-primary">Edit this Item</a>&nbsp; &nbsp;
+<a href="/showObjects/{{objectType}}" class="btn btn-primary">Show all items</a><br>
+</div>
+<div>
+        <div>
+
+<h1>{{objectType}} Detail</h1>
+
+{% for key,value in object.items %}
+
+{% if key != "id" %}
+
+{% if key == "fileName" %}
+<b>{{key}}:</b> {{value}} <a class="documentLink" href="/displayFile/{{value}}/{{object.driveId}}" width="100%" target="_blank" >Link</a> <br>
+{% else %}
+<b>{{key}}:</b> {% autoescape off %}{{ value|linebreaks }}{% endautoescape %} <br>
+{% endif %}
+
+
+{% endif %}
+
+{% endfor %}
+   <br><br>
+
+  </div>
+</div>
+</div>
+
+{% endblock %}

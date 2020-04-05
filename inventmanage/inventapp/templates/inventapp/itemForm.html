@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+<section id="entry">
+ <h1>Item</h1>
+ <form enctype="multipart/form-data" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+     <label for="id_item_id"> Item ID </label>
+     <input type="number" name="item_id" class="form-control" maxlength="60" required id="id_item_id" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_item_stock"> Item Stock </label>
+     <input type="number" name="item_stock" class="form-control" maxlength="60" required id="id_item_stock" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_item_minimum_required"> Minimum Item Required </label>
+     <input type="number" name="item_minimum_required" class="form-control" maxlength="60" required id="id_item_minimum_required" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_item_name"> Item Name </label>
+     <input type="text" name="item_name" class="form-control" maxlength="60" required id="id_item_name" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">Inventory ID</label>
+     <select class="form-control" id="id_inv" name="inv">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+
+   {% if not objectToUpdate.id  %}
+    <button formaction="/saveObject/{{objectType}}/" class="btn btn-primary" type="submit">Save</button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" role="button">Cancel</a>
+   {% else %}
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=update" class="btn btn-primary" type="submit"> Update </button>
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=delete" class="btn btn-primary" type="submit"> Delete </button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" type="button">Cancel</a>
+   {% endif %}
+ </form>
+ </section>
+{% endblock %}

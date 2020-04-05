@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+
+	<script>
+		$(document).ready( function () {
+    $('#records').DataTable();
+} );
+</script>
+
+<div>
+<a href="/modelObjects/{{objectType}}" class="btn btn-primary" >Make New Entry</a><br>
+</div>
+<div>
+	<div>
+
+
+	<h3> List of {{objectType}} </h3>
+
+	{% if noEntry %}
+
+	There is no entry to display.
+
+	{% else %}
+	<table id="records" class="display">
+    <thead>
+        <tr>
+
+	{% for field in fieldNames %}
+			<th> {{field}} </th>
+	{% endfor %}
+
+	</tr>
+    </thead>
+    <tbody>
+
+
+	{% for x in objects %}
+	<tr>
+	{% for value in x %}
+			<td>{{value}}</td>
+	{% endfor %}
+	<td><a href="/showObjectDetails/{{objectType}}/{{x.0}}">Show</a></td>
+  <td><a href="/modelObjects/{{objectType}}?edit=true&objectId={{x.0}}">Edit</a></td>
+	</tr>
+	{% endfor %}
+
+	</tbody>
+</table>
+
+{% endif %}
+	</div>
+</div>
+</div>
+
+
+        </div>
+
+
+{% endblock %}

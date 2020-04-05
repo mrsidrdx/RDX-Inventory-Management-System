@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+<section id="entry">
+ <h1>Orders</h1>
+ <form enctype="multipart/form-data" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+     <label for="id_order_id"> Order ID </label>
+     <input type="number" name="order_id" class="form-control" maxlength="60" required id="id_order_id" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">Payment ID</label>
+     <select class="form-control" id="id_pay" name="pay">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">Customer ID</label>
+     <select class="form-control" id="id_customer" name="customer">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">User ID</label>
+     <select class="form-control" id="id_users" name="users">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">Item ID</label>
+     <select class="form-control" id="id_item" name="item">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+
+   {% if not objectToUpdate.id  %}
+    <button formaction="/saveObject/{{objectType}}/" class="btn btn-primary" type="submit">Save</button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" role="button">Cancel</a>
+   {% else %}
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=update" class="btn btn-primary" type="submit"> Update </button>
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=delete" class="btn btn-primary" type="submit"> Delete </button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" type="button">Cancel</a>
+   {% endif %}
+ </form>
+ </section>
+{% endblock %}

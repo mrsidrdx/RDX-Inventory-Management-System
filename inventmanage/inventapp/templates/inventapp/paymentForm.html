@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+<section id="entry">
+ <h1>Payment</h1>
+ <form enctype="multipart/form-data" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+     <label for="id_pay_id"> Payment ID </label>
+     <input type="number" name="pay_id" class="form-control" maxlength="60" required id="id_pay_id" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_pay_date"> Payment Date </label>
+     <input type="date" name="pay_date" class="form-control" maxlength="60" required id="id_pay_date" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_pay_amount"> Payment Amount </label>
+     <input type="number" name="pay_amount" class="form-control" maxlength="60" required id="id_pay_amount" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">Customer ID</label>
+     <select class="form-control" id="id_customer" name="customer">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">User ID</label>
+     <select class="form-control" id="id_users" name="users">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+
+   {% if not objectToUpdate.id  %}
+    <button formaction="/saveObject/{{objectType}}/" class="btn btn-primary" type="submit">Save</button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" role="button">Cancel</a>
+   {% else %}
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=update" class="btn btn-primary" type="submit"> Update </button>
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=delete" class="btn btn-primary" type="submit"> Delete </button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" type="button">Cancel</a>
+   {% endif %}
+ </form>
+ </section>
+{% endblock %}

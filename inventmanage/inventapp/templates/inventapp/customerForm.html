@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+<section id="entry">
+ <h1>Customer</h1>
+ <form enctype="multipart/form-data" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+     <label for="id_customer_id"> Customer ID </label>
+     <input type="number" name="customer_id" class="form-control" maxlength="60" required id="id_customer_id" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_customer_name"> Customer Name </label>
+     <input type="text" name="customer_name" class="form-control" maxlength="60" required id="id_customer_name" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_customer_mobile"> Customer Mobile No. </label>
+     <input type="text" name="customer_mobile" class="form-control" maxlength="10" required id="id_customer_mobile" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_customer_email"> Customer Email </label>
+     <input type="email" name="customer_email" class="form-control" maxlength="60" required id="id_customer_email" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="octane">User ID</label>
+     <select class="form-control" id="id_users" name="users">
+       <option selected disabled>--Select One Option--</option>
+     </select>
+   </div>
+   <br>
+
+   {% if not objectToUpdate.id  %}
+    <button formaction="/saveObject/{{objectType}}/" class="btn btn-primary" type="submit">Save</button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" role="button">Cancel</a>
+   {% else %}
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=update" class="btn btn-primary" type="submit"> Update </button>
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=delete" class="btn btn-primary" type="submit"> Delete </button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" type="button">Cancel</a>
+   {% endif %}
+ </form>
+ </section>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+<section id="entry">
+ <h1>Inventory</h1>
+ <form enctype="multipart/form-data" method="post">
+   {% csrf_token %}
+   <div class="form-group">
+     <label for="id_inv_id"> Inventory ID </label>
+     <input type="number" name="inv_id" class="form-control" maxlength="60" required id="id_inv_id" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_inv_name"> Inventory Name </label>
+     <input type="text" name="inv_name" class="form-control" maxlength="60" required id="id_inv_name" />
+   </div>
+   <br>
+   <div class="form-group">
+     <label for="id_inv_location"> Inventory Location </label>
+     <input type="text" name="inv_location" class="form-control" maxlength="60" required id="id_inv_location" />
+   </div>
+   <br>
+
+   {% if not objectToUpdate.id  %}
+    <button formaction="/saveObject/{{objectType}}/" class="btn btn-primary" type="submit">Save</button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" role="button">Cancel</a>
+   {% else %}
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=update" class="btn btn-primary" type="submit"> Update </button>
+    <button formaction="/updateObject/{{objectType}}/{{objectToUpdate.id}}?operation=delete" class="btn btn-primary" type="submit"> Delete </button>
+    <a href="/showObjects/{{objectType}}" class="btn btn-primary" type="button">Cancel</a>
+   {% endif %}
+ </form>
+ </section>
+{% endblock %}

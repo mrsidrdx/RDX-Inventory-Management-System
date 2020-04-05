@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+<section id="entry">
+ {% if user.is_authenticated or registered %}
+  <div>
+    <h1>Hey {{ username|title }}! Thankyou For Registering With Us.</h1>
+    <h2>We pleasantly welcomes you to RDX IM System.</h2><br>
+    {% if registered %}
+    <a href="{% url "user_login" %}" class="btn btn-primary" role="button">Login Now</a><br>
+    {% endif %}
+  </div>
+ {% else %}
+ <h1>Register Here!</h1>
+ <form enctype="multipart/form-data" method="post">
+   {% csrf_token %}
+   {% bootstrap_form user_form %}
+   {% bootstrap_form profile_form %}
+   <input type="submit" class="btn btn-primary" value="Register">
+   <hr>
+   <h3>Already having an account? Sign in right now!</h3>
+   <a href="{% url "user_login" %}" class="btn btn-primary" role="button">Login Now</a><br>
+
+ </form>
+ {% endif %}
+ </section>
+{% endblock %}

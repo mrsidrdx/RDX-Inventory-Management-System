@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block page_content %}
+
+<div>
+<a href="/showObjects/{{objectType}}" class="btn btn-primary">Show List</a>&nbsp;&nbsp;
+<a href="/modelObjects/{{objectType}}" class="btn btn-primary" >Make New Entry</a><br>
+</div>
+<div>
+	<div>
+	{% if Operation == 'add' %}
+	<h3> New {{objectType}} has been saved. </h3>
+	Click <a href="/showObjectDetails/{{objectType}}/{{objectID}}"> here </a>  to see the record details.
+
+	{% elif Operation == 'update' %}
+	<h3> Record has been updated. </h3>
+        Click <a href="/showObjectDetails/{{objectType}}/{{objectID}}"> here </a>  to see the updated record details.
+
+	{% else %}
+	<h3> Record from {{objectType}} has been deleted. </h3>
+
+	{% endif %}
+	</div>
+</div>
+</div>
+{% endblock %}

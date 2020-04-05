@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block page_content %}
+
+<section id="entry">
+ {% if user.is_authenticated %}
+ <h1>Hey {{ user.username|title }}!</h1>
+ <h6>Successfully Signed In.</h6>
+ {% else %}
+ <h1>Sign In Here!</h1>
+ <form enctype="multipart/form-data" method="post" action="{% url 'user_login' %}">
+   {% csrf_token %}
+   <label for="username">Username:</label>
+   <input class = "form-control" type="text" name="username" placeholder="Enter Your Username"><br>
+
+   <label for="password">Password:</label>
+   <input class = "form-control" type="password" name="password" placeholder="Enter Your Password">
+   <br>
+   <input type="submit" name="" class = "btn btn-primary" value="Login">
+   {% if loginFailed %}
+    <br><strong><p>Invalid login attempt, Try again!</p></strong>
+   {% endif %}
+   <hr>
+   <h3>Not having an account? Create one right now!</h3>
+   <a href="{% url "register" %}" class="btn btn-primary" role="button">Sign Up</a><br>
+ </form>
+ {% endif %}
+ </section>
+{% endblock %}
